@@ -27,13 +27,13 @@ jobs:
   test:
     # Hint: read more about jobs outputs and needs context here: https://docs.github.com/en/actions/learn-github-actions/contexts#needs-context
     # Add your solution below this line
+    if: ${{ needs.sync.outputs.state=='run'}} 
     needs: sync
     runs-on: ubuntu-latest
     steps:
       - name: Run test suite
         run: |
-          if $GITHUB_OUTPUT=='state=run'; then
-            echo "Running tests..."
-            sleep 5 # Simulate running tests
-            exit 0
-          fi
+          echo "Running tests..."
+          sleep 5 # Simulate running tests
+          exit 0
+          
