@@ -1,39 +1,27 @@
-name: "Lesson 2 - Exercise 2b"
+name: "Lesson 2 - Exercise 3"
 
 on:
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
-  sync:
-    runs-on: ubuntu-latest
-    outputs:
-      state: ${{ steps.sync_check.outputs.state }}
-    steps:
-      - name: Determine whether to run the job `test` or halt the workflow run
-        id: sync_check
-        run: |
-          # The following will choose between `run` and `halt` randomly
-          # and set the output of the job to the chosen value
-          if [ $((RANDOM % 2)) -eq 0 ]; then
-            # set the output of the job to `run`
-            echo "state=run" >> "$GITHUB_OUTPUT"
-            echo "Running the job `test`..."
-          else
-            # set the output of the job to `halt`
-            echo "state=halt" >> "$GITHUB_OUTPUT"
-            echo "Skipping the job `test`..."
-          fi
+    test:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Prevent reruns
+          run: |
+            # Exit if the run number is greater than the maximum number of attempts
+            if [ $RUN_ATTEMPT_NUMBER -gt $MAXIMUM_ATTEMPTS ]; then
+              echo "Exiting because the run number is greater than the maximum number of attempts"
+              exit 1
+            fi
+          # Add your solution below this line
+          env:
+            RUN_ATTEMPT_NUMBER: github.run_attempt
+            MAXIMUM_ATTEMPTS: 2
+          # Hint: read more about the github context here: https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+          # Hint: read more about setting job level environment variables here: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idenv
 
-  test:
-    # Hint: read more about jobs outputs and needs context here: https://docs.github.com/en/actions/learn-github-actions/contexts#needs-context
-    # Add your solution below this line
-    if: ${{ needs.sync.outputs.state=='run'}} 
-    needs: sync
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run test suite
-        run: |
-          echo "Running tests..."
-          sleep 5 # Simulate running tests
-          exit 0
-          
+        - name: Run job
+          run: |
+            echo "Running job"
+            sleep 1
