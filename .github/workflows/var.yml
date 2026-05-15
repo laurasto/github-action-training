@@ -1,7 +1,7 @@
 name: "Lesson 3 - Exercise 1"
 
 on:
-    workflow_dispatch:
+    workflow_call:
       inputs:
           actor:
               description: "The person who will receive the greeting"
