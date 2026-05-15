@@ -23,5 +23,5 @@ jobs:
 
         - name: Run job
           run: |
-            echo "Running job"
+            echo "Running job with number $RUN_ATTEMPT_NUMBER"
             sleep 1
