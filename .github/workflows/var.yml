@@ -3,9 +3,10 @@ name: "Lesson 3 - Exercise 1"
 on:
     workflow_call:
       inputs:
-          actor:
-              description: "The person who will receive the greeting"
-              required: true
+        actor:
+          description: "The person who will receive the greeting"
+          required: true
+          type: string
 
 jobs:
     greeting:
