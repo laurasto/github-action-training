@@ -1,26 +1,18 @@
-name: "Lesson 2 - Exercise 4"
+name: "Lesson 3 - Exercise 1"
 
 on:
-          push:
-            branches:
-              - main
-              # Match the release branches of the format: releases/1, releases/2, etc.
-              - "releases/[0-9]"
-
-# Add your solution below this line
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: true
-
+    workflow_dispatch:
+      inputs:
+          actor:
+              description: "The person who will receive the greeting"
+              required: true
 
 jobs:
-          release:
-            strategy:
-              matrix:
-                version: ['0.1.0','0.1.1']
-            runs-on: ${{ matrix.version }}
-            steps:
-              - name: Build and release
-                run: |
-                  echo "Building branch: ${{ github.ref }} for version: ${{ matrix.version }}"
-                  sleep 10
+    greeting:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Greetings message
+          run: |
+            echo "Well done: $ACTOR you've implemented reusable workflows successfully!"
+          env:
+            ACTOR: ${{ inputs.actor }}
