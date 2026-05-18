@@ -67,7 +67,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: upload-primes
-          path: primes.txt
+          
 
       # ----------------------------------
       # Do not modify the code in the following step
