@@ -16,7 +16,10 @@ jobs:
             body_words_count=$(cat response.json | jq -r '.body' | wc -w | xargs)
 
             # Print the word count
-            echo "Title word count: $title_words_count"
-            echo "Body word count: $body_words_count"
+            echo "Title word count: $title_words_count" 
+            echo "Body word count: $body_words_count" 
 
             ## Add your answer below this line
+            echo "## Word count summary" >> $GITHUB_STEP_SUMMARY
+            echo "Title word count: $title_words_count" >> $GITHUB_STEP_SUMMARY
+            echo "Body word count: $body_words_count" >> $GITHUB_STEP_SUMMARY
