@@ -49,7 +49,14 @@ jobs:
 
       # Add your solution below this line
       # ----------------------------------
-      # ...
+      - uses: actions/upload-artifact@v4
+        with:
+          name: upload-primes
+          path: primes.txt
+          if-no-files-found: 'error'
+          retention-days: 1
+          compression-level: 1
+          overwrite: true 
 
   verify-primes:
     runs-on: ubuntu-latest
@@ -57,7 +64,10 @@ jobs:
     steps:
       # Add your solution below this line
       # ----------------------------------
-      # ...
+      - uses: actions/download-artifact@v4
+        with:
+          name: download-primes
+          path: primes.txt
 
       # ----------------------------------
       # Do not modify the code in the following step
